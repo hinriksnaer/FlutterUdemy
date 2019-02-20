@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class Product extends StatelessWidget {
+class ProductPage extends StatelessWidget {
   final String title;
   final String imageUrl;
 
-  Product(this.title, this.imageUrl);
+  ProductPage(this.title, this.imageUrl);
 
   @override
   Widget build(BuildContext context) {
