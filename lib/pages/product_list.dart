@@ -4,7 +4,7 @@ class ProductListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('All Productss'),
+      child: Text('All Products'),
     );
   }
 }

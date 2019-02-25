@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+// import 'package:flutter/rendering.dart';
 
+import './pages/auth.dart';
 import './pages/products_admin.dart';
 import './pages/products.dart';
 import './pages/product.dart';
-import './pages/auth.dart';
 
 void main() {
-  debugPaintSizeEnabled = false;
-  debugPaintBaselinesEnabled = false;
-  debugPaintPointersEnabled = false;
+  // debugPaintSizeEnabled = true;
+  // debugPaintBaselinesEnabled = true;
+  // debugPaintPointersEnabled = true;
   runApp(MyApp());
 }
 
@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _products.add(product);
     });
+    print(_products);
   }
 
   void _deleteProduct(int index) {
@@ -38,11 +39,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // debugShowMaterialGrid: true,
       theme: ThemeData(
           brightness: Brightness.light,
-          primarySwatch: Colors.cyan,
+          primarySwatch: Colors.deepOrange,
           accentColor: Colors.deepPurple),
-      //home: AuthPage(),
+      // home: AuthPage(),
       routes: {
         '/': (BuildContext context) => AuthPage(),
         '/products': (BuildContext context) => ProductsPage(_products),
@@ -58,9 +60,7 @@ class _MyAppState extends State<MyApp> {
           final int index = int.parse(pathElements[2]);
           return MaterialPageRoute<bool>(
             builder: (BuildContext context) => ProductPage(
-                  _products[index]['title'],
-                  _products[index]['image'],
-                ),
+                _products[index]['title'], _products[index]['image']),
           );
         }
         return null;

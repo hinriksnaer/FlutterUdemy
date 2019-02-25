@@ -9,10 +9,9 @@ class ProductManager extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('[ProductManager State] build()');
     return Column(
-      children: [
-        Expanded(child: Products(products)),
-      ],
+      children: [Expanded(child: Products(products))],
     );
   }
 }

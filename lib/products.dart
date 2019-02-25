@@ -28,39 +28,40 @@ class Products extends StatelessWidget {
                     width: 8.0,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 6.0,
-                      vertical: 2.5,
-                    ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.5),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: Theme.of(context).accentColor,
-                    ),
+                        color: Theme.of(context).accentColor,
+                        borderRadius: BorderRadius.circular(5.0)),
                     child: Text(
                       '\$${products[index]['price'].toString()}',
                       style: TextStyle(color: Colors.white),
                     ),
-                  ),
+                  )
                 ],
               )),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.5),
+            padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.5),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6.0),
-              border: Border.all(
-                color: Colors.grey,
-                width: 1.0,
-              ),
-            ),
-            child: Text('Union Square, San Fransisco'),
+                border: Border.all(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.circular(4.0)),
+            child: Text('Union Square, San Francisco'),
           ),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
-                  child: Text('Details'),
-                  onPressed: () => Navigator.pushNamed<bool>(
-                      context, '/product/' + index.toString()))
+              IconButton(
+                icon: Icon(Icons.info),
+                color: Theme.of(context).accentColor,
+                onPressed: () => Navigator.pushNamed<bool>(
+                    context, '/product/' + index.toString()),
+              ),
+              IconButton(
+                icon: Icon(Icons.favorite_border),
+                color: Colors.red,
+                onPressed: () => Navigator.pushNamed<bool>(
+                    context, '/product/' + index.toString()),
+              )
             ],
           )
         ],
@@ -70,7 +71,6 @@ class Products extends StatelessWidget {
 
   Widget _buildProductList() {
     Widget productCards;
-
     if (products.length > 0) {
       productCards = ListView.builder(
         itemBuilder: _buildProductItem,
@@ -79,14 +79,12 @@ class Products extends StatelessWidget {
     } else {
       productCards = Container();
     }
-
     return productCards;
   }
 
   @override
   Widget build(BuildContext context) {
-    print('[Products Widget] Build');
-
+    print('[Products Widget] build()');
     return _buildProductList();
   }
 }

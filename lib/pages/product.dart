@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
 
 class ProductPage extends StatelessWidget {
   final String title;
@@ -8,27 +9,28 @@ class ProductPage extends StatelessWidget {
   ProductPage(this.title, this.imageUrl);
 
   _showWarningDialog(BuildContext context) {
-    return showDialog(
+    showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text('Are you sure?'),
-              content: Text('This action cannot be undone!'),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('CONTINUE'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                FlatButton(
-                  child: Text('DELETE'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context, true);
-                  },
-                )
-              ]);
+            title: Text('Are you sure?'),
+            content: Text('This action cannot be undone!'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('DISCARD'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              FlatButton(
+                child: Text('CONTINUE'),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context, true);
+                },
+              ),
+            ],
+          );
         });
   }
 
@@ -36,7 +38,7 @@ class ProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        print('back button pressed');
+        print('Back button pressed!');
         Navigator.pop(context, false);
         return Future.value(false);
       },
@@ -44,25 +46,23 @@ class ProductPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(imageUrl),
-              Container(
-                padding: EdgeInsets.all(10.0),
-                child: Text(title),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(imageUrl),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              child: Text(title),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              child: RaisedButton(
+                color: Theme.of(context).accentColor,
+                child: Text('DELETE'),
+                onPressed: () => _showWarningDialog(context),
               ),
-              Container(
-                padding: EdgeInsets.all(10.0),
-                child: RaisedButton(
-                  color: Theme.of(context).accentColor,
-                  child: Text('DELETE'),
-                  onPressed: () => _showWarningDialog(context),
-                ),
-              ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
