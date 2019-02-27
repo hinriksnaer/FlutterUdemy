@@ -51,29 +51,26 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     );
   }
 
-  _submitForm() {
-    return RaisedButton(
-      child: Text('Save'),
-      color: Theme.of(context).accentColor,
-      textColor: Colors.white,
-      onPressed: () {
-        final Map<String, dynamic> product = {
-          'title': _titleValue,
-          'description': _descriptionValue,
-          'price': _priceValue,
-          'image': 'assets/food.jpg'
-        };
-        widget.addProduct(product);
-        Navigator.pushReplacementNamed(context, '/products');
-      },
-    );
+  void _submitForm() {
+    final Map<String, dynamic> product = {
+      'title': _titleValue,
+      'description': _descriptionValue,
+      'price': _priceValue,
+      'image': 'assets/food.jpg'
+    };
+    widget.addProduct(product);
+    Navigator.pushReplacementNamed(context, '/products');
   }
 
   @override
   Widget build(BuildContext context) {
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
+    final double targetPadding = deviceWidth - targetWidth;
     return Container(
       margin: EdgeInsets.all(10.0),
       child: ListView(
+        padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
         children: <Widget>[
           _buildTitleTextField(),
           _buildDescriptionTextField(),
@@ -81,7 +78,19 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
           SizedBox(
             height: 10.0,
           ),
-          _submitForm(),
+          RaisedButton(
+            child: Text('Save'),
+            textColor: Colors.white,
+            onPressed: _submitForm,
+          )
+          // GestureDetector(
+          //   onTap: _submitForm,
+          //   child: Container(
+          //     color: Colors.green,
+          //     padding: EdgeInsets.all(5.0),
+          //     child: Text('My Button'),
+          //   ),
+          // )
         ],
       ),
     );

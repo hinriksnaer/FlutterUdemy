@@ -41,9 +41,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       // debugShowMaterialGrid: true,
       theme: ThemeData(
-          brightness: Brightness.light,
-          primarySwatch: Colors.deepOrange,
-          accentColor: Colors.deepPurple),
+        brightness: Brightness.light,
+        primarySwatch: Colors.cyan,
+        accentColor: Colors.pink,
+        buttonColor: Colors.pink,
+        ),
       // home: AuthPage(),
       routes: {
         '/': (BuildContext context) => AuthPage(),
