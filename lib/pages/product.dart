@@ -63,7 +63,7 @@ class ProductPage extends StatelessWidget {
               padding: EdgeInsets.all(10.0),
               alignment: Alignment.center,
               child: Text(
-                  'asdf asdf asdf asdf  asdfasdfj asddghasdlkjgh saldkhfasdkhf blaskdfh askdhf adshb fkasdhf blasksfhliasduhglasirsjgh asufjnhla wekfjhblairg hlaisufh laisdufh iasudhf lawerfh liawruhg iasruf jghsldsu',
+                  description,
                   textAlign: TextAlign.center),
             ),
           ],
