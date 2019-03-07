@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
+import 'package:scoped_model/scoped_model.dart';
+
 import './pages/auth.dart';
 import './pages/products_admin.dart';
 import './pages/products.dart';
 import './pages/product.dart';
 import './models/product.dart';
+import './scoped-models/products.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -22,41 +25,43 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // debugShowMaterialGrid: true,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.cyan,
-        accentColor: Colors.pink,
-        buttonColor: Colors.pink,
+    return ScopedModel<ProductsModel>(
+      model: ProductsModel(),
+      child: MaterialApp(
+        // debugShowMaterialGrid: true,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primarySwatch: Colors.cyan,
+          accentColor: Colors.pink,
+          buttonColor: Colors.pink,
         ),
-      // home: AuthPage(),
-      routes: {
-        '/': (BuildContext context) => AuthPage(),
-        '/products': (BuildContext context) => ProductsPage(),
-        '/admin': (BuildContext context) =>
-            ProductsAdminPage(),
-      },
-      onGenerateRoute: (RouteSettings settings) {
-        final List<String> pathElements = settings.name.split('/');
-        if (pathElements[0] != '') {
+        // home: AuthPage(),
+        routes: {
+          '/': (BuildContext context) => AuthPage(),
+          '/products': (BuildContext context) => ProductsPage(),
+          '/admin': (BuildContext context) => ProductsAdminPage(),
+        },
+        onGenerateRoute: (RouteSettings settings) {
+          final List<String> pathElements = settings.name.split('/');
+          if (pathElements[0] != '') {
+            return null;
+          }
+          if (pathElements[1] == 'product') {
+            final int index = int.parse(pathElements[2]);
+            return MaterialPageRoute<bool>(
+              builder: (BuildContext context) =>
+                  ProductPage(index),
+            );
+          }
           return null;
-        }
-        if (pathElements[1] == 'product') {
-          final int index = int.parse(pathElements[2]);
-          return MaterialPageRoute<bool>(
-            builder: (BuildContext context) => ProductPage(null, null, null, null),
-          );
-        }
-        return null;
-      },
-      onUnknownRoute: (RouteSettings settings) {
-        return MaterialPageRoute(
-            builder: (BuildContext context) => ProductsPage());
-      },
+        },
+        onUnknownRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+              builder: (BuildContext context) => ProductsPage());
+        },
+      ),
     );
   }
 }
